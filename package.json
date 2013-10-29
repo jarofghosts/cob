@@ -20,5 +20,10 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jarofghosts/cob/issues"
+  },
+  "dependencies": {
+    "dotpather": "0.0.2",
+    "through": "~2.3.4",
+    "nopt": "~2.1.2"
   }
 }
