@@ -1,0 +1,24 @@
+{
+  "name": "cob",
+  "version": "0.0.0",
+  "description": "read and manipulate json",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jarofghosts/cob.git"
+  },
+  "keywords": [
+    "json",
+    "read",
+    "write",
+    "manipulate"
+  ],
+  "author": "jesse keane",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jarofghosts/cob/issues"
+  }
+}
