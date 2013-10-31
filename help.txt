@@ -1,0 +1,9 @@
+==========================================================
+Usage: cob [options]
+
+Options are:
+--input, -i, -f <file>       | Read from input file
+--output, -o <file>          | Output to file
+--get, -g <dotpath>          | Return the value at dotpath
+--set, -s <dotpath>=<value>  | Set the value at dotpath
+

@@ -2,6 +2,10 @@
   "name": "cob",
   "version": "0.0.0",
   "description": "read and manipulate json",
+  "preferGlobal": true,
+  "bin": {
+    "cob": "./bin/cob.js"
+  },
   "main": "index.js",
   "scripts": {
     "test": "node test/test.js"
@@ -22,8 +26,8 @@
     "url": "https://github.com/jarofghosts/cob/issues"
   },
   "dependencies": {
-    "dotpather": "0.0.2",
     "through": "~2.3.4",
-    "nopt": "~2.1.2"
+    "nopt": "~2.1.2",
+    "dotpath": "0.0.1"
   }
 }
