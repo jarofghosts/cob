@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "node test/test.js"
+    "test": "node test/plain-test.js && node test/get-test.js && node test/set-test.js"
   },
   "repository": {
     "type": "git",
