@@ -1,6 +1,8 @@
 cob
 ===
 
+[![Build Status](https://travis-ci.org/jarofghosts/cob.png?branch=master)](https://travis-ci.org/jarofghosts/cob)
+
 Easily read and manipulate json
 
 ## installation
