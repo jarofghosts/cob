@@ -66,6 +66,7 @@ function help() {
   fs.createReadStream(path.resolve(__dirname, '..', 'help.txt'))
       .pipe(process.stdout)
 }
+
 function version() {
   var cob_package = require('../package.json')
   process.stdout.write('cob version ' + cob_package.version + '\n')
