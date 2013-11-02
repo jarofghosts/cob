@@ -30,7 +30,16 @@ if (options.help) return help()
 if (options.version) return version()
 
 if (options.argv.remain.length) {
-  options.get = (options.get || []).concat(options.argv.remain)
+  for (var i = 0, l = options.argv.remain.length; i < l; ++i) {
+    var arg = options.argv.remain[i]
+    if (arg.indexOf('=') > -1) {
+      !options.set && (options.set = [])
+      options.set.push(arg)
+    } else {
+      !options.get && (options.get = [])
+      options.get.push(arg)
+    }
+  }
 }
 
 if (!options.input) {
