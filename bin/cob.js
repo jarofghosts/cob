@@ -29,6 +29,10 @@ var cob = require('../'),
 if (options.help) return help()
 if (options.version) return version()
 
+if (options.argv.remain.length) {
+  options.get = (options.get || []).concat(options.argv.remain)
+}
+
 if (!options.input) {
   input_stream = process.stdin
 } else {
