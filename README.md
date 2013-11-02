@@ -36,6 +36,14 @@ outputs
 * `--get, -g <dotpath>` Return the value at `<dotpath>`
 * `--set, -s <dotpath>=<value>` Set the value at `<dotpath>`
 
+## note
+
+Extra arguments not specified by a flag will be considered either a get or a
+set based on the presence or lack thereof of an equal sign.
+
+For example, `cob name` is equivalent to `cob --get name` and
+`cob name='"dummy"'` is the same as doing `cob --set name='"dummy"'`.
+
 ## as a module
 
 ```js
