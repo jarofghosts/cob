@@ -1,11 +1,11 @@
-var through = require('through'),
-    DotPath = require('dotpath')
+var through = require('through')
+  , DotPath = require('dotpath')
 
 module.exports = cob
 
 function cob(keys) {
-  var cob_stream = through(write, end),
-      data = []
+  var cob_stream = through(write, end)
+    , data = []
 
   if (typeof keys === 'string') keys = [keys]
 
@@ -17,6 +17,7 @@ function cob(keys) {
 
   function end() {
     data = data.join('')
+
     try {
       data = JSON.parse(data)
     } catch(e) {
@@ -42,8 +43,7 @@ function cob(keys) {
     print_json(data)
 
     function print_json(data) {
-      return cob_stream.queue('' +
-          JSON.stringify(data, null, 2) + '\n')
+      return cob_stream.queue(JSON.stringify(data, null, 2) + '\n')
     }
   }
 }
