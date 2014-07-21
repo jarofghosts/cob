@@ -1,7 +1,8 @@
 cob
 ===
 
-[![Build Status](https://travis-ci.org/jarofghosts/cob.png?branch=master)](https://travis-ci.org/jarofghosts/cob)
+[![Build Status](http://img.shields.io/travis/jarofghosts/cob.svg?style=flat)](https://travis-ci.org/jarofghosts/cob)
+[![npm install](http://img.shields.io/npm/dm/cob.svg?style=flat)](https://www.npmjs.org/package/cob)
 
 Easily read and manipulate json
 

@@ -4,46 +4,44 @@ var through = require('through')
 module.exports = cob
 
 function cob(keys) {
-  var cob_stream = through(write, end)
-    , data = []
+  var cobStream = through(write, end)
+    , data = ''
 
-  if (typeof keys === 'string') keys = [keys]
+  if(typeof keys === 'string') keys = [keys]
 
-  return cob_stream
+  return cobStream
 
   function write(buf) {
-    data.push(buf.toString())
+    data += buf
   }
 
   function end() {
-    data = data.join('')
-
     try {
       data = JSON.parse(data)
     } catch(e) {
-      return cob_stream.queue(null)
+      return cobStream.queue(null)
     }
 
-    if (!keys) return print_json(data)
+    if(!keys) return printJson(data)
 
     var traverse = new DotPath(data)
 
-    if (Array.isArray(keys)) {
-      for (var i = 0, l = keys.length; i < l; ++i) {
-        print_json(traverse.get(keys[i]))
+    if(Array.isArray(keys)) {
+      for(var i = 0, l = keys.length; i < l; ++i) {
+        printJson(traverse.get(keys[i]))
       }
 
-      return cob_stream.queue(null)
+      return cobStream.queue(null)
     }
 
-    for (var k in keys) {
+    for(var k in keys) {
       traverse.forceSet(k, keys[k])
     }
 
-    print_json(data)
+    printJson(data)
 
-    function print_json(data) {
-      return cob_stream.queue(JSON.stringify(data, null, 2) + '\n')
+    function printJson(data) {
+      cobStream.queue(JSON.stringify(data, null, 2) + '\n')
     }
   }
 }

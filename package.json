@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "node test/plain-test.js && node test/get-test.js && node test/set-test.js"
+    "test": "node test/index.js"
   },
   "repository": {
     "type": "git",
@@ -26,8 +26,11 @@
     "url": "https://github.com/jarofghosts/cob/issues"
   },
   "dependencies": {
-    "through": "~2.3.4",
-    "nopt": "~2.1.2",
+    "through": "^2.3.4",
+    "nopt": "^2.1.2",
     "dotpath": "0.0.1"
+  },
+  "devDependencies": {
+    "tape": "^2.13.3"
   }
 }

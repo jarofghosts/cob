@@ -1,38 +1,52 @@
 #!/usr/bin/env node
 
-var cob = require('../'),
-    fs = require('fs'),
-    path = require('path'),
-    nopt = require('nopt'),
-    noptions = {
-      help: Boolean,
-      version: Boolean,
-      get: Array,
-      set: Array,
-      input: String,
-      output: String
-    },
-    shorts = {
-      g: ['--get'],
-      s: ['--set'],
-      i: ['--input'],
-      f: ['--input'],
-      o: ['--output'],
-      h: ['--help'],
-      v: ['--version']
-    },
-    options = nopt(noptions, shorts, process.argv),
-    input_stream,
-    output_stream,
-    cob_stream
+var path = require('path')
+  , fs = require('fs')
 
-if (options.help) return help()
-if (options.version) return version()
+var nopt = require('nopt')
 
-if (options.argv.remain.length) {
-  for (var i = 0, l = options.argv.remain.length; i < l; ++i) {
-    var arg = options.argv.remain[i]
-    if (arg.indexOf('=') > -1) {
+var cob = require('../')
+
+var noptions = {
+    help: Boolean
+  , version: Boolean
+  , get: Array
+  , set: Array
+  , input: String
+  , output: String
+}
+
+var shorts = {
+    g: ['--get']
+  , s: ['--set']
+  , i: ['--input']
+  , f: ['--input']
+  , o: ['--output']
+  , h: ['--help']
+  , v: ['--version']
+}
+
+var cobPackage = require('../package.json')
+
+var options = nopt(noptions, shorts, process.argv)
+
+var outputStream
+  , inputStream
+  , cobStream
+  , to_set
+  , bits
+  , arg
+  , k
+  , v
+
+if(options.help) return help()
+if(options.version) return version()
+
+if(options.argv.remain.length) {
+  for(var i = 0, l = options.argv.remain.length; i < l; ++i) {
+    arg = options.argv.remain[i]
+
+    if(arg.indexOf('=') > -1) {
       !options.set && (options.set = [])
       options.set.push(arg)
     } else {
@@ -42,45 +56,43 @@ if (options.argv.remain.length) {
   }
 }
 
-if (!options.input) {
-  input_stream = process.stdin
+if(!options.input) {
+  inputStream = process.stdin
 } else {
-  input_stream = fs.createReadStream(options.input)
+  inputStream = fs.createReadStream(options.input)
 }
 
-if (!options.output) {
-  output_stream = process.stdout
+if(!options.output) {
+  outputStream = process.stdout
 } else {
-  output_stream = fs.createWriteStream(options.output)
+  outputStream = fs.createWriteStream(options.output)
 }
 
-if (!options.set && !options.get) {
-  cob_stream = cob()
-} else if (options.set) {
-  var to_set = {}
-  for (var i = 0, l = options.set.length; i < l; ++i) {
-    var bits = options.set[i].split('='),
-        k = bits[0],
-        v = bits[1]
+if(!options.set && !options.get) {
+  cobStream = cob()
+} else if(options.set) {
+  for(var i = 0, l = options.set.length; i < l; ++i) {
+    bits = options.set[i].split('=')
+    k = bits[0]
+    v = bits[1]
 
     to_set[k] = JSON.parse(v)
   }
 
-  cob_stream = cob(to_set)
-
+  cobStream = cob(to_set)
 } else {
-  cob_stream = cob(options.get)
+  cobStream = cob(options.get)
 }
 
-input_stream.pipe(cob_stream).pipe(output_stream)
+inputStream.pipe(cobStream).pipe(outputStream)
 
 function help() {
   version()
+
   fs.createReadStream(path.resolve(__dirname, '..', 'help.txt'))
-      .pipe(process.stdout)
+      .pipe(process.stderr)
 }
 
 function version() {
-  var cob_package = require('../package.json')
-  process.stdout.write('cob version ' + cob_package.version + '\n')
+  process.stderr.write('cob version ' + cobPackage.version + '\n')
 }
