@@ -1,6 +1,6 @@
 {
   "name": "cob",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "read and manipulate json",
   "preferGlobal": true,
   "bin": {
