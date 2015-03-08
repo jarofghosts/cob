@@ -34,9 +34,9 @@ function cob(keys) {
       return cobStream.queue(null)
     }
 
-    for(var k in keys) {
+    Object.keys(keys).forEach(function(k) {
       traverse.forceSet(k, keys[k])
-    }
+    })
 
     printJson(data)
 
