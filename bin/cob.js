@@ -29,18 +29,23 @@ var shorts = {
 var cobPackage = require('../package.json')
 
 var options = nopt(noptions, shorts, process.argv)
+  , toSet = {}
 
 var outputStream
   , inputStream
   , cobStream
-  , to_set
   , bits
   , arg
   , k
   , v
 
-if(options.help) return help()
-if(options.version) return version()
+if(options.help) {
+  return help()
+}
+
+if(options.version) {
+  return version()
+}
 
 if(options.argv.remain.length) {
   for(var i = 0, l = options.argv.remain.length; i < l; ++i) {
@@ -76,10 +81,10 @@ if(!options.set && !options.get) {
     k = bits[0]
     v = bits[1]
 
-    to_set[k] = JSON.parse(v)
+    toSet[k] = JSON.parse(v)
   }
 
-  cobStream = cob(to_set)
+  cobStream = cob(toSet)
 } else {
   cobStream = cob(options.get)
 }
