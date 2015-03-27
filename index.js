@@ -1,47 +1,59 @@
-var through = require('through')
-  , DotPath = require('dotpath')
+var dotpath = require('deep-property')
+  , concat = require('concat-stream')
+  , through = require('through2')
+  , duplex = require('duplexify')
 
 module.exports = cob
 
 function cob(keys) {
-  var cobStream = through(write, end)
-    , data = ''
+  var stream = through()
 
-  if(typeof keys === 'string') keys = [keys]
+  return duplex(concat(onend), stream)
 
-  return cobStream
+  function onend(buf) {
+    var data = parseJson(buf)
 
-  function write(buf) {
-    data += buf
-  }
+    if(!keys) {
+      print(data)
 
-  function end() {
-    try {
-      data = JSON.parse(data)
-    } catch(e) {
-      return cobStream.queue(null)
+      return stream.push(null)
     }
 
-    if(!keys) return printJson(data)
-
-    var traverse = new DotPath(data)
+    if(typeof keys === 'string') {
+      keys = [keys]
+    }
 
     if(Array.isArray(keys)) {
-      for(var i = 0, l = keys.length; i < l; ++i) {
-        printJson(traverse.get(keys[i]))
-      }
+      keys.map(lookup).forEach(print)
 
-      return cobStream.queue(null)
+      return stream.push(null)
     }
 
-    Object.keys(keys).forEach(function(k) {
-      traverse.forceSet(k, keys[k])
-    })
+    print(Object.keys(keys).reduce(updateObj, data))
+    stream.push(null)
 
-    printJson(data)
+    function lookup(key) {
+      return dotpath.get(data, key)
+    }
+  }
 
-    function printJson(data) {
-      cobStream.queue(JSON.stringify(data, null, 2) + '\n')
+  function updateObj(data, key) {
+    dotpath.set(data, key, keys[key])
+
+    return data
+  }
+
+  function print(obj) {
+    stream.push(JSON.stringify(obj, null, 2) + '\n')
+  }
+
+  function parseJson(str) {
+    try {
+      return JSON.parse(str.toString())
+    } catch(err) {
+      stream.emit('error', err)
+
+      return false
     }
   }
 }

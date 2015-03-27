@@ -26,9 +26,11 @@
     "url": "https://github.com/jarofghosts/cob/issues"
   },
   "dependencies": {
-    "through": "^2.3.4",
+    "concat-stream": "^1.4.7",
+    "deep-property": "^1.1.0",
+    "duplexify": "^3.2.0",
     "nopt": "^2.1.2",
-    "dotpath": "0.0.1"
+    "through2": "^0.6.3"
   },
   "devDependencies": {
     "tape": "^2.13.3"
