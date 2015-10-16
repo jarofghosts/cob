@@ -1,9 +1,12 @@
 # cob
 
-[![Build Status](http://img.shields.io/travis/jarofghosts/cob.svg?style=flat)](https://travis-ci.org/jarofghosts/cob)
-[![npm install](http://img.shields.io/npm/dm/cob.svg?style=flat)](https://www.npmjs.org/package/cob)
+[![Build Status](http://img.shields.io/travis/jarofghosts/cob.svg?style=flat-square)](https://travis-ci.org/jarofghosts/cob)
+[![npm install](http://img.shields.io/npm/dm/cob.svg?style=flat-square)](https://www.npmjs.org/package/cob)
+[![npm version](https://img.shields.io/npm/v/cob.svg?style=flat-square)](https://www.npmjs.org/package/cob)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard)
+[![License](https://img.shields.io/npm/l/cob.svg?style=flat-square)](https://github.com/jarofghosts/cob/blob/master/LICENSE)
 
-Easily read and manipulate json
+Easily read and manipulate JSON
 
 ## installation
 
@@ -61,7 +64,7 @@ a through stream that pretty prints the JSON you throw at it
 a through stream that returns newline separated values of each dotpath resolved
 in the JSON you throw at it
 
-#### `cob({ 'dot.path': "new value", 'a.plenty': true })`
+#### `cob({'dot.path': "new value", 'a.plenty': true})`
 
 a through stream that outputs all your JSON with the changes made as specified
 

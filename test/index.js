@@ -2,11 +2,11 @@ var test = require('tape')
 
 var cob = require('../')
 
-test('queues pretty printed json on write', function(t) {
+test('queues pretty printed json on write', function (t) {
   var testObj = {hello: {world: true}}
-    , cobStream = cob()
+  var cobStream = cob()
 
-  cobStream.on('data', function(data) {
+  cobStream.on('data', function (data) {
     t.equal(data.toString(), JSON.stringify(testObj, null, 2) + '\n')
     t.end()
   })
@@ -14,11 +14,11 @@ test('queues pretty printed json on write', function(t) {
   cobStream.end(JSON.stringify(testObj))
 })
 
-test('streams values at dotpath if specified', function(t) {
+test('streams values at dotpath if specified', function (t) {
   var testObj = {hello: {world: true}}
-    , cobStream = cob('hello.world')
+  var cobStream = cob('hello.world')
 
-  cobStream.on('data', function(data) {
+  cobStream.on('data', function (data) {
     t.equal(data.toString(), JSON.stringify(true) + '\n')
     t.end()
   })
@@ -26,14 +26,14 @@ test('streams values at dotpath if specified', function(t) {
   cobStream.end(JSON.stringify(testObj))
 })
 
-test('streams values at dotpath if specified', function(t) {
+test('streams values at dotpath if specified', function (t) {
   var testObj = {hello: {world: true}}
-    , cobStream = cob({'hello.world': false})
+  var cobStream = cob({'hello.world': false})
 
-  cobStream.on('data', function(data) {
+  cobStream.on('data', function (data) {
     t.equal(
-        data.toString()
-      , JSON.stringify({hello: {world: false}}, null, 2) + '\n'
+      data.toString(),
+      JSON.stringify({hello: {world: false}}, null, 2) + '\n'
     )
     t.end()
   })
